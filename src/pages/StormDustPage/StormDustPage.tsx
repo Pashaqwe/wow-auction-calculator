@@ -19,7 +19,7 @@ export function StormDustPage() {
             </Typography.Text>
             <Typography.Text>
               При расчетах был использован флакон урожайных времен года третьего
-              грейда
+              грейда и раса кровавый эльф
             </Typography.Text>
             <Typography.Text>
               Цена указывается в формате золотых.серебряных(10.09 - 10 золотых,
