@@ -21,7 +21,7 @@ export function StormDustForm({ setProfit }: Readonly<TStormDustFormProps>) {
     const revenue = fragmentsCount * 3.78 * stormDustPrice;
     const cost = fragmentsCount * shiningFragmentPrice;
 
-    setProfit(revenue - cost);
+    setProfit(Math.floor(revenue - cost));
   };
 
   return (
