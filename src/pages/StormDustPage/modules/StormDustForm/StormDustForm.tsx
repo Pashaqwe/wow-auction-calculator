@@ -18,7 +18,7 @@ export function StormDustForm({ setProfit }: Readonly<TStormDustFormProps>) {
     shiningFragmentPrice,
     stormDustPrice,
   }: TFormValues) => {
-    const revenue = fragmentsCount * 3.78 * stormDustPrice;
+    const revenue = fragmentsCount * 3.75 * stormDustPrice;
     const cost = fragmentsCount * shiningFragmentPrice;
 
     setProfit(Math.floor(revenue - cost));
