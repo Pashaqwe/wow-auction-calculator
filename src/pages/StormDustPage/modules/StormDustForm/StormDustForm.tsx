@@ -1,12 +1,17 @@
 import { Button, Form, InputNumber, Select } from "antd";
 import {
+  AVERAGE_DUST_PER_FRAGMENT,
   BANK_COMMISSION,
-  DUST_PER_FRAGMENT,
   FRAGMENTS_QUALITY_SELECT_OPTIONS,
   INITIAL_VALUES,
+  MIN_DUST_PER_FRAGMENT,
 } from "./constants";
 
-type TStormDustFormProps = { setProfit: (profit: number) => void };
+type TStormDustFormProps = {
+  setMinProfit: (minProfit: number) => void;
+  setAverageProfit: (averageProfit: number) => void;
+  setAmountMoneySpent: (amountMoneySpent: number) => void;
+};
 
 type TFormValues = {
   fragmentsCount: number;
@@ -14,17 +19,28 @@ type TFormValues = {
   stormDustPrice: number;
 };
 
-export function StormDustForm({ setProfit }: Readonly<TStormDustFormProps>) {
+export function StormDustForm({
+  setMinProfit,
+  setAverageProfit,
+  setAmountMoneySpent,
+}: Readonly<TStormDustFormProps>) {
   const onFinish = ({
     fragmentsCount,
     shiningFragmentPrice,
     stormDustPrice,
   }: TFormValues) => {
-    const revenue = fragmentsCount * DUST_PER_FRAGMENT * stormDustPrice;
+    const minRevenue = fragmentsCount * MIN_DUST_PER_FRAGMENT * stormDustPrice;
+    const averageRevenue =
+      fragmentsCount * AVERAGE_DUST_PER_FRAGMENT * stormDustPrice;
     const cost = fragmentsCount * shiningFragmentPrice;
-    const bankCommission = revenue * BANK_COMMISSION;
+    const bankCommissionMinRevenue = minRevenue * BANK_COMMISSION;
+    const bankCommissionAverageRevenue = minRevenue * BANK_COMMISSION;
 
-    setProfit(Math.floor(revenue - cost - bankCommission));
+    setMinProfit(Math.floor(minRevenue - cost - bankCommissionMinRevenue));
+    setAverageProfit(
+      Math.floor(averageRevenue - cost - bankCommissionAverageRevenue)
+    );
+    setAmountMoneySpent(Math.floor(fragmentsCount * shiningFragmentPrice));
   };
 
   return (

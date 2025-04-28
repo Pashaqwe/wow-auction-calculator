@@ -3,7 +3,9 @@ import { StormDustForm } from "./modules";
 import { useState } from "react";
 
 export function StormDustPage() {
-  const [profit, setProfit] = useState(0);
+  const [minProfit, setMinProfit] = useState(0);
+  const [averageProfit, setAverageProfit] = useState(0);
+  const [amountMoneySpent, setAmountMoneySpent] = useState(0);
 
   return (
     <Flex justify="center" style={{ width: "100%" }}>
@@ -28,13 +30,31 @@ export function StormDustPage() {
           }
         />
 
-        <StormDustForm setProfit={setProfit} />
-
-        <Statistic
-          title="Минимальная прибыль"
-          valueStyle={{ color: profit < 0 ? "#cf1322" : "#3f8600" }}
-          value={profit}
+        <StormDustForm
+          setMinProfit={setMinProfit}
+          setAverageProfit={setAverageProfit}
+          setAmountMoneySpent={setAmountMoneySpent}
         />
+
+        <Flex gap={20}>
+          <Statistic
+            title="Минимальная прибыль"
+            groupSeparator=" "
+            valueStyle={{ color: minProfit < 0 ? "#cf1322" : "#3f8600" }}
+            value={minProfit}
+          />
+          <Statistic
+            title="Средняя прибыль"
+            groupSeparator=" "
+            valueStyle={{ color: averageProfit < 0 ? "#cf1322" : "#3f8600" }}
+            value={averageProfit}
+          />
+          <Statistic
+            groupSeparator=" "
+            title="Потраченное золото"
+            value={amountMoneySpent}
+          />
+        </Flex>
       </Flex>
     </Flex>
   );

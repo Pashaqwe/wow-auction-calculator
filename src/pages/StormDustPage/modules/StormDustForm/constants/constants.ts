@@ -10,6 +10,7 @@ export const INITIAL_VALUES = {
   fragmentsCount: 1000,
 };
 
-export const DUST_PER_FRAGMENT = 3.59;
+export const MIN_DUST_PER_FRAGMENT = 3.59;
+export const AVERAGE_DUST_PER_FRAGMENT = 3.68;
 
 export const BANK_COMMISSION = 0.05;
