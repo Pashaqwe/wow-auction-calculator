@@ -1,8 +1,10 @@
-import { Button, Form, InputNumber } from "antd";
-
-const initialValues = {
-  fragmentsCount: 1000,
-};
+import { Button, Form, InputNumber, Select } from "antd";
+import {
+  BANK_COMMISSION,
+  DUST_PER_FRAGMENT,
+  FRAGMENTS_QUALITY_SELECT_OPTIONS,
+  INITIAL_VALUES,
+} from "./constants";
 
 type TStormDustFormProps = { setProfit: (profit: number) => void };
 
@@ -18,20 +20,26 @@ export function StormDustForm({ setProfit }: Readonly<TStormDustFormProps>) {
     shiningFragmentPrice,
     stormDustPrice,
   }: TFormValues) => {
-    const revenue = fragmentsCount * 3.75 * stormDustPrice;
+    const revenue = fragmentsCount * DUST_PER_FRAGMENT * stormDustPrice;
     const cost = fragmentsCount * shiningFragmentPrice;
+    const bankCommission = revenue * BANK_COMMISSION;
 
-    setProfit(Math.floor(revenue - cost));
+    setProfit(Math.floor(revenue - cost - bankCommission));
   };
 
   return (
-    <Form
-      initialValues={initialValues}
-      labelCol={{ span: 16 }}
-      wrapperCol={{ span: 24 }}
-      style={{ maxWidth: "350px" }}
-      onFinish={onFinish}
-    >
+    <Form initialValues={INITIAL_VALUES} onFinish={onFinish}>
+      <Form.Item
+        required
+        rules={[{ required: true, message: "Обязательное поле" }]}
+        name="fragmentsQuality"
+        label="Кол-во осколков"
+      >
+        <Select
+          style={{ maxWidth: "200px" }}
+          options={FRAGMENTS_QUALITY_SELECT_OPTIONS}
+        />
+      </Form.Item>
       <Form.Item
         required
         rules={[{ required: true, message: "Обязательное поле" }]}
